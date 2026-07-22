@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: ga4
+    description: "Google's public obfuscated GA4 e-commerce sample (Google Merchandise Store). One row per event; nested event_params and items. No PII."
+    database: bigquery-public-data
+    schema: ga4_obfuscated_sample_ecommerce
+    tables:
+      - name: events
+        identifier: "events_*"     # date-sharded wildcard; filter with _TABLE_SUFFIX to control cost
+        description: "GA4 event export. Grain: one row per event per user_pseudo_id."

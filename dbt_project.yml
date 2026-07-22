@@ -1,0 +1,17 @@
+name: 'ga4_product_analytics'
+version: '1.0.0'
+config-version: 2
+
+profile: 'ga4_product_analytics'
+
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  ga4_product_analytics:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

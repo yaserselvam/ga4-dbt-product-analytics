@@ -1,0 +1,29 @@
+# Copy this to ~/.dbt/profiles.yml and fill in your own GCP project.
+# The public GA4 source lives in bigquery-public-data (read cross-project);
+# dbt writes its models into a dataset YOU own in your sandbox project.
+#
+# RECOMMENDED for a locked-down laptop (no gcloud install needed): service-account
+# key method below. Download a JSON key from the GCP console and point dbt at it.
+ga4_product_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      keyfile: C:/Users/YaserSe/keys/ga4-dbt-key.json  # <-- path to your downloaded JSON key
+      project: your-gcp-project-id   # <-- your BigQuery sandbox project id
+      dataset: ga4_analytics         # <-- a dataset you own; dbt creates models here
+      location: US                   # GA4 public sample is in the US multi-region
+      threads: 4
+      priority: interactive
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+
+    # ALTERNATIVE (only if you have the gcloud CLI): OAuth, no key file needed.
+    # oauth:
+    #   type: bigquery
+    #   method: oauth
+    #   project: your-gcp-project-id
+    #   dataset: ga4_analytics
+    #   location: US
+    #   threads: 4
