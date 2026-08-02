@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: ga4_raw
+    description: >
+      GA4 e-commerce export landed into Snowflake. In the runbook this table is
+      populated one of two ways: (a) a Fivetran connector syncing a source into
+      Snowflake, or (b) a bulk COPY INTO from GA4 JSON exported to a stage.
+      Semi-structured GA4 fields (event_params, device, geo, traffic_source,
+      ecommerce) land as VARIANT and are flattened in staging.
+    database: ga4_demo          # <-- your Snowflake database
+    schema: raw                 # <-- landing schema
+    tables:
+      - name: events
+        description: "Raw GA4 events. Grain: one row per event per user_pseudo_id. event_params is a VARIANT array."

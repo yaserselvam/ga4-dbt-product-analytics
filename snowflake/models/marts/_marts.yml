@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: fct_sessions
+    description: "One row per GA4 session (user_pseudo_id + ga_session_id) with funnel conversion flags and purchase revenue."
+    columns:
+      - name: session_key
+        description: "Unique session identifier: user_pseudo_id + '-' + ga_session_id."
+        tests:
+          - unique
+          - not_null
+      - name: did_purchase
+        description: "True if a purchase event occurred in the session."
+        tests:
+          - not_null
+
+  - name: funnel_conversion
+    description: "Long-format purchase funnel: users reaching each step, with share-of-top and step-over-step conversion."
+    columns:
+      - name: step
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['View item', 'Add to cart', 'Begin checkout', 'Purchase']
+      - name: users
+        tests:
+          - not_null
+
+  - name: retention_cohorts
+    description: "Weekly acquisition cohort x weeks-since-first-visit, count of active users."
+    columns:
+      - name: active_users
+        tests:
+          - not_null
+
+  - name: rfm_segments
+    description: "RFM scores and a named segment for each purchasing user."
+    columns:
+      - name: user_pseudo_id
+        tests:
+          - unique
+          - not_null
+      - name: segment
+        tests:
+          - accepted_values:
+              values: ['Champions', 'Loyal', 'New / Promising', 'At Risk', 'Hibernating', 'Needs Attention']

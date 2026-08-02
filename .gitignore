@@ -6,3 +6,7 @@ profiles.yml
 .env
 __pycache__/
 *.pyc
+
+# Snowflake runbook local artifacts (never commit)
+_load/
+*.p8

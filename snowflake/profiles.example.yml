@@ -1,0 +1,17 @@
+# Copy to ~/.dbt/profiles.yml (merge with any existing profiles).
+# A Snowflake free trial (30 days, no card) gives you ACCOUNTADMIN and a warehouse.
+# Find your account identifier in the URL: https://<ACCOUNT>.snowflakecomputing.com
+ga4_product_analytics_snowflake:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "<your_account_identifier>"   # e.g. ab12345.eu-west-2.aws
+      user: "<your_user>"
+      password: "<your_password>"             # or use authenticator: externalbrowser
+      role: TRANSFORMER                        # or ACCOUNTADMIN on a fresh trial
+      warehouse: COMPUTE_WH                    # the default trial warehouse
+      database: GA4_DEMO
+      schema: ANALYTICS                        # dbt writes marts here; raw lives in GA4_DEMO.RAW
+      threads: 4
+      client_session_keep_alive: false

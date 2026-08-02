@@ -1,8 +1,14 @@
-# GA4 Product Analytics: dbt on BigQuery, Power BI dashboard
+# GA4 Product Analytics: dbt on BigQuery & Snowflake, Power BI dashboard
+
+[![CI](https://github.com/yaserselvam/ga4-dbt-product-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/yaserselvam/ga4-dbt-product-analytics/actions/workflows/ci.yml)
 
 An end-to-end product-analytics build on the **public GA4 e-commerce dataset** in BigQuery: raw GA4 events modelled with **dbt** (staging -> marts, tested and documented), analysed in SQL for **funnel conversion, retention cohorts, and RFM segmentation**, and shipped as a **Power BI** dashboard. Built the way a modern London product/marketing analyst role actually works.
 
 > **AI-augmented, human-verified.** I build the dbt models and SQL using an AI-augmented workflow I direct: I set the brief and own every definition, and nothing is trusted until the dbt tests pass and I have reconciled the numbers against the raw events myself. Prompt library in `/prompts`. AI to move faster, never to decide unchecked.
+
+## Runs on two warehouses (BigQuery and Snowflake)
+
+The same dbt project runs on **both BigQuery and Snowflake** and produces identical results. The Snowflake port is in [`snowflake/`](snowflake/README.md): the full public GA4 sample (4,295,584 events) loaded into Snowflake and built with `dbt build` (16/16 nodes passing), matching the BigQuery numbers exactly (`rfm_segments` = 4,419 purchasing users in both). Ingestion is a bulk COPY, with a Fivetran connector demoed separately; auth is Snowflake key-pair, so the build runs non-interactively. The `snowflake/` folder has the full runbook and scripts to reproduce it end to end.
 
 ## Results (headline)
 

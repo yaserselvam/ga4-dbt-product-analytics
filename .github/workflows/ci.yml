@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  dbt-validate:
+    name: dbt parse (BigQuery + Snowflake)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dbt adapters
+        run: pip install --quiet dbt-bigquery dbt-snowflake
+
+      # dbt parse validates the whole project (refs, sources, tests, YAML, SQL
+      # compilation) and builds the manifest without ever connecting to a
+      # warehouse, so placeholder credentials are all CI needs.
+      - name: Write placeholder profiles
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml <<'EOF'
+          ga4_product_analytics:
+            target: dev
+            outputs:
+              dev:
+                type: bigquery
+                method: oauth
+                project: placeholder
+                dataset: placeholder
+                threads: 1
+          ga4_product_analytics_snowflake:
+            target: dev
+            outputs:
+              dev:
+                type: snowflake
+                account: placeholder
+                user: placeholder
+                password: placeholder
+                role: placeholder
+                database: placeholder
+                warehouse: placeholder
+                schema: placeholder
+                threads: 1
+          EOF
+
+      - name: Validate BigQuery project
+        run: dbt parse
+
+      - name: Validate Snowflake project
+        working-directory: snowflake
+        run: dbt parse
