@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: session_quality_flags
+    description: >
+      Row-level data-quality flags on fct_sessions. Suspicious rows are flagged,
+      never dropped (the Monzo CHECK_ZERO pattern), so no signal is lost and no
+      issue is hidden. Downstream consumers can filter on has_dq_flag; the
+      flag-rate test warns the owning team when the rate breaches its threshold.
+    meta:
+      owner: analytics-engineering
+      owner_slack: "@yaser"
+    columns:
+      - name: session_key
+        description: "Session identifier carried through from fct_sessions."
+        tests:
+          - unique
+          - not_null
+      - name: has_dq_flag
+        description: "True if the session violates any data-quality rule."
+        tests:
+          - not_null
+      - name: dq_flag_count
+        description: "Number of data-quality rules the session violates (0 to 4)."
+        tests:
+          - not_null

@@ -10,6 +10,10 @@ An end-to-end product-analytics build on the **public GA4 e-commerce dataset** i
 
 The same dbt project runs on **both BigQuery and Snowflake** and produces identical results. The Snowflake port is in [`snowflake/`](snowflake/README.md): the full public GA4 sample (4,295,584 events) loaded into Snowflake and built with `dbt build` (16/16 nodes passing), matching the BigQuery numbers exactly (`rfm_segments` = 4,419 purchasing users in both). Ingestion is a bulk COPY, with a Fivetran connector demoed separately; auth is Snowflake key-pair, so the build runs non-interactively. The `snowflake/` folder has the full runbook and scripts to reproduce it end to end.
 
+## Data observability & governance
+
+Passing tests once is not the hard part; keeping the warehouse trustworthy after a source silently changes is. The [`observability/`](observability/README.md) layer adds the operational habits top UK fintech data teams (Monzo, Wise, GoCardless) actually run: a **flag-never-drop** data-quality model, volume and distribution monitors, an **ownership-tagged alerter** that routes failures to the owning team (Monzo's `#data-monitoring` pattern), and a **Monzo-style governance gate in CI** that fails any pull request where a model lacks an owner, docs, or a test. Ownership (`meta.owner`) is a first-class, enforced field, not a comment.
+
 ## Results (headline)
 
 **Biggest funnel leak: product view to add-to-cart, only 20.5% convert.** Cart-to-checkout is healthy (77%); checkout-to-purchase loses over half (46%). Full write-up and recommendation in [`outputs/readout.md`](outputs/readout.md).

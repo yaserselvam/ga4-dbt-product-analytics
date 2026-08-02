@@ -3,6 +3,9 @@ version: 2
 models:
   - name: fct_sessions
     description: "One row per GA4 session (user_pseudo_id + ga_session_id) with funnel conversion flags and purchase revenue."
+    meta:
+      owner: analytics-engineering
+      owner_slack: "@yaser"
     columns:
       - name: session_key
         description: "Unique session identifier: user_pseudo_id + '-' + ga_session_id."
@@ -16,9 +19,13 @@ models:
 
   - name: funnel_conversion
     description: "Long-format purchase funnel: users reaching each step, with share-of-top and step-over-step conversion."
+    meta:
+      owner: analytics-engineering
+      owner_slack: "@yaser"
     columns:
       - name: step
         tests:
+          - unique
           - not_null
           - accepted_values:
               values: ['View item', 'Add to cart', 'Begin checkout', 'Purchase']
@@ -28,6 +35,9 @@ models:
 
   - name: retention_cohorts
     description: "Weekly acquisition cohort x weeks-since-first-visit, count of active users."
+    meta:
+      owner: analytics-engineering
+      owner_slack: "@yaser"
     columns:
       - name: active_users
         tests:
@@ -35,6 +45,9 @@ models:
 
   - name: rfm_segments
     description: "RFM scores and a named segment for each purchasing user."
+    meta:
+      owner: analytics-engineering
+      owner_slack: "@yaser"
     columns:
       - name: user_pseudo_id
         tests:

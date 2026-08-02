@@ -53,6 +53,11 @@ jobs:
       - name: Validate BigQuery project
         run: dbt parse
 
+      # Monzo-style governance gate: every marts/observability model must have an
+      # owner, docs, and a test, or the PR fails. Reads the manifest dbt parse wrote.
+      - name: Enforce model standards (owner, docs, tests)
+        run: python observability/check_standards.py
+
       - name: Validate Snowflake project
         working-directory: snowflake
         run: dbt parse
