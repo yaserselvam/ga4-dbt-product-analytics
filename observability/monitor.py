@@ -63,7 +63,7 @@ def main() -> None:
         detail = f"{failures} failing rows" if failures is not None else result.get("message", "")
         alerts.append(
             f"[{status.upper()}] {node.get('name', uid)} "
-            f"on `{subject_name}` (owner {owner_of(subject)}) — {detail}".strip()
+            f"on `{subject_name}` (owner {owner_of(subject)}): {detail}".strip()
         )
 
     if not alerts:
