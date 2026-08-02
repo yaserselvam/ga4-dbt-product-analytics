@@ -1,6 +1,6 @@
 # Prompt Library
 
-The prompts used to build this project with Claude, published for transparency. The rule throughout: **AI drafts, I verify.** dbt tests must pass and the numbers must reconcile against the raw GA4 events before anything is trusted.
+The prompts I used to build this project, published for transparency. The rule throughout: **I direct, AI assists, I verify.** dbt tests must pass and the numbers must reconcile against the raw GA4 events before anything is trusted.
 
 ## 1. Flattening GA4
 
@@ -34,4 +34,4 @@ The prompts used to build this project with Claude, published for transparency. 
 
 ---
 
-*Every model above was drafted with AI and then gated on dbt tests + a manual reconciliation against the raw events. The models are the AI's; the trust is mine to establish.*
+*I built every model above with an AI-augmented workflow, then gated it on dbt tests and a manual reconciliation against the raw events. The models and the judgment behind them are mine; the AI accelerates the drafting, it does not decide.*

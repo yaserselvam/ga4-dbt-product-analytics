@@ -2,7 +2,7 @@
 
 An end-to-end product-analytics build on the **public GA4 e-commerce dataset** in BigQuery: raw GA4 events modelled with **dbt** (staging -> marts, tested and documented), analysed in SQL for **funnel conversion, retention cohorts, and RFM segmentation**, and shipped as a **Power BI** dashboard. Built the way a modern London product/marketing analyst role actually works.
 
-> **AI-augmented, human-verified.** Claude drafts and refactors the dbt models and SQL; nothing is trusted until the dbt tests pass and I have checked the numbers against the raw events myself. Prompt library in `/prompts`. AI to move faster, never to decide unchecked.
+> **AI-augmented, human-verified.** I build the dbt models and SQL using an AI-augmented workflow I direct: I set the brief and own every definition, and nothing is trusted until the dbt tests pass and I have reconciled the numbers against the raw events myself. Prompt library in `/prompts`. AI to move faster, never to decide unchecked.
 
 ## Results (headline)
 

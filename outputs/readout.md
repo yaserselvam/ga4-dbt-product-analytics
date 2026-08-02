@@ -50,5 +50,5 @@ RFM scoring of the 4,419 purchasing users into six named segments:
 
 - **Modern stack, shipped:** GA4 raw events -> dbt (`stg` view -> `fct_sessions` -> funnel / retention / RFM marts) on BigQuery, with sources, tests (not-null, unique, accepted-values) and docs. `dbt build` = PASS 15/15.
 - **Trustworthy by construction:** validity is enforced by tests, not assumed; the funnel counts are monotonic (view >= cart >= checkout >= purchase) as a sanity check.
-- **AI-augmented workflow:** Claude drafted and refactored the dbt models; every statistical and modelling choice was checked by hand against the raw events before being trusted. Prompt library in `/prompts`.
+- **AI-augmented workflow:** I built and refactored the dbt models using an AI-augmented workflow I direct; every statistical and modelling choice was checked by hand against the raw events before being trusted. Prompt library in `/prompts`.
 - **Reproducible:** anyone with a BigQuery sandbox can `dbt build` this from the public dataset and get the same tables.
