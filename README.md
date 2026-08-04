@@ -4,8 +4,6 @@
 
 An end-to-end product-analytics build on the **public GA4 e-commerce dataset** in BigQuery: raw GA4 events modelled with **dbt** (staging -> marts, tested and documented), analysed in SQL for **funnel conversion, retention cohorts, and RFM segmentation**, and shipped as a **Power BI** dashboard. Built the way a modern London product/marketing analyst role actually works.
 
-> **AI-augmented, human-verified.** I build the dbt models and SQL using an AI-augmented workflow I direct: I set the brief and own every definition, and nothing is trusted until the dbt tests pass and I have reconciled the numbers against the raw events myself. Prompt library in `/prompts`. AI to move faster, never to decide unchecked.
-
 ## Runs on two warehouses (BigQuery and Snowflake)
 
 The same dbt project runs on **both BigQuery and Snowflake** and produces identical results. The Snowflake port is in [`snowflake/`](snowflake/README.md): the full public GA4 sample (4,295,584 events) loaded into Snowflake and built with `dbt build` (16/16 nodes passing), matching the BigQuery numbers exactly (`rfm_segments` = 4,419 purchasing users in both). Ingestion is a bulk COPY, with a Fivetran connector demoed separately; auth is Snowflake key-pair, so the build runs non-interactively. The `snowflake/` folder has the full runbook and scripts to reproduce it end to end.
@@ -28,14 +26,14 @@ Passing tests once is not the hard part; keeping the warehouse trustworthy after
 
 It deliberately covers the modern data-analyst stack that UK job specs (GoHenry, Gousto, the Guardian, Sage, fintech) keep asking for and that most portfolios miss:
 
-- **GA4 + BigQuery** — the standard product/marketing analytics source in 2026.
-- **dbt** — analytics-engineering: sources, staging/marts, tests, docs, a semantic layer of clean models.
-- **Power BI** — an interactive dashboard on top of a governed model.
-- **Product analytics** — funnel/conversion, cohort/retention, and segmentation, the questions these teams actually ask.
+- **GA4 + BigQuery**: the standard product/marketing analytics source in 2026.
+- **dbt** for analytics engineering: sources, staging/marts, tests, docs, a semantic layer of clean models.
+- **Power BI**: an interactive dashboard on top of a governed model.
+- **Product analytics**: funnel/conversion, cohort/retention, and segmentation, the questions these teams actually ask.
 
 ## The data (public, free, no PII)
 
-`bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*` — Google's obfuscated GA4 export for the Google Merchandise Store (roughly Nov 2020 to Jan 2021). Real GA4 event structure (event-per-row, nested `event_params`, `items`), fully obfuscated, no personal data.
+`bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`: Google's obfuscated GA4 export for the Google Merchandise Store (roughly Nov 2020 to Jan 2021). Real GA4 event structure (event-per-row, nested `event_params`, `items`), fully obfuscated, no personal data.
 
 - **Cost:** query it inside a **BigQuery sandbox** (free, no card, 1 TB/month free tier). The models are written to scan only what they need.
 
@@ -83,4 +81,4 @@ ga4-dbt-product-analytics/
 - A **real, messy, nested** source (GA4), not a tidy CSV.
 - **Tested and documented** models (dbt tests + a docs site), not just ad-hoc queries.
 - Ends in **decisions**: where the funnel leaks, which cohorts retain, which segments to invest in.
-- The **AI-augmented, human-verified** workflow is shown, not claimed (prompt library published).
+- Runs on **two warehouses** (BigQuery and Snowflake) with a **data observability and CI governance** layer, not just models.
