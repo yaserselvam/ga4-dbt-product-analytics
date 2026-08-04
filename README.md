@@ -62,8 +62,6 @@ ga4-dbt-product-analytics/
   analysis/                      <- standalone BigQuery SQL versions (run without dbt if preferred)
   powerbi/
     README.md                    <- BigQuery connection + dashboard spec
-  prompts/
-    prompt-library.md
   .gitignore
 ```
 

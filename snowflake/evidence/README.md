@@ -3,7 +3,7 @@
 Written record of the live run, so the proof survives even without the images.
 The three screenshots are saved in this folder under the filenames referenced below.
 
-## 1. dbt build on Snowflake — 16/16 passed
+## 1. dbt build on Snowflake: 16/16 passed
 
 `dbt build` against `GA4_DEMO`, key-pair auth, XSMALL warehouse:
 
